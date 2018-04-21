@@ -1,0 +1,78 @@
+.navbar-container {
+  background-color: #24292e;
+  display: flex;
+  flex: 1 1 auto;
+  font-size: 14px;
+  height: 32px;
+  justify-content: space-between;
+  line-height: 32px;
+  padding: 12px 32px;
+}
+
+.flex {
+  display: flex;
+}
+
+.hub-icon {
+  background-image: url('../assets/hub.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+}
+
+.search-box {
+  background-color: #c1c1c1;
+  border: 0;
+  border-radius: 4px;
+  height: 16px;
+  margin: 0 16px;
+  outline: 0;
+  padding: 8px;
+  width: 200px;
+}
+
+.navbar-button-container {
+  font: "Impact";
+  height: 32px;
+  width: 96px;
+}
+
+.navbar-button {
+  background-color: #24292e;
+  color: rgba(255, 255, 255, 0.75);
+  font: "Impact";
+  width: 100%;
+}
+
+.navbar-button:hover {
+  background-color: black;
+}
+
+.navbar-button:active {
+  background-color: #31343a;
+}
+
+.account-settings {
+  cursor: pointer;
+  display: flex;
+  height: 32px;
+  padding-top: 4px;
+  width: 48px;
+}
+
+.avatar-icon {
+  border-radius: 16px;
+  height: 24px;
+  width: 24px;
+}
+
+.down-arrow {
+  background-image: url("../assets/down-arrow.png");
+  background-position: 0 4px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 32px;
+  width: 24px;
+}

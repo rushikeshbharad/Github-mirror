@@ -1,0 +1,42 @@
+.button-container {
+  align-items: center;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+}
+
+button {
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 32px;
+  width: 100%;
+}
+
+.secondary {
+  background-color: #e0e0e0;
+}
+
+.secondary:hover {
+  background-color: #eaeaea;
+}
+
+button:focus {
+  outline: 0;
+}
+
+.secondary:active {
+  background-color: #d5d5d5;
+}
+
+.primary {
+  background-color: #6fa1f2;
+}
+
+.primary:hover {
+  background-color: #81abef;
+}
+
+.primary:active {
+  background-color: #4786ed;
+}
