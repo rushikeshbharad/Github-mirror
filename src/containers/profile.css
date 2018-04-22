@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  margin-top: 8px;
+}
+
+.info {
+  height: 400px;
+  margin: 20px;
+  margin-left: 120px;
+  width: 200px;;
+}
+
+.avatar {
+  background: url("../assets/avatar.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 5px;
+  height: 200px;
+  width: 100%;
+}
+
+.username {
+  height: 40px;
+  line-height: 40px;
+  margin-top: 10px;
+  opacity: 0.7;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.separator {
+  height: 1px;
+  margin-top: 10px;
+  background-color: #e0e0e0;
+}
+
+.joined-at {
+  background: url("../assets/timer.png");
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  background-position: 10px;
+  font-size: 12px;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 32px;
+  text-align: left;
+}
+
+.details {
+  display: flex;
+  height: 400px;
+  margin: 20px;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.nav-button-container {
+  background-color: transparent;
+  margin: 0 24px;
+}
+
+.nav-button {
+  background-color: transparent;
+  width: 100%;
+}
+
+.nav-button:hover {
+  background-color: transparent;
+  opacity: 0.8;
+}
+
+.nav-button:active {
+  background-color: transparent;
+  opacity: 0.5;
+}
+
+.nav-button-underline {
+  background-color: transparent;
+  height: 2px;
+  margin: auto;
+  width: 80%;
+}
+
+.nav-button-underline.hover {
+  background-color: #e0e0e0;
+}
+
+.nav-button-underline.active {
+  background-color: orange;
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    display: block;
+  }
+
+  .info {
+    margin: auto;
+  }
+
+  .details {
+    margin: auto;
+  }
+}
