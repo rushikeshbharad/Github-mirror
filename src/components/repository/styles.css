@@ -1,0 +1,28 @@
+.repository-repo-holder {
+  margin: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  border-top: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.repository-repo-values-holder {
+  display: flex;
+  margin: 16px;
+}
+
+
+.repository-repo-name {
+  margin: 16px;
+}
+
+.repository-repo-description {
+  font-size: 14px;
+  margin-left: 16px;
+  opacity: 0.9;
+}
+
+.repository-repo-updated-at {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-left: 16px;
+}

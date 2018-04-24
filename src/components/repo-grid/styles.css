@@ -1,0 +1,40 @@
+.repo-grid-row {
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  display: flex;
+  height: 32px;
+  justify-content: space-between;
+  margin: 0 32px;
+}
+
+.repo-filename-container {
+  color: #1c6ced;
+  display: flex;
+  margin-left: 8px;
+}
+
+.repo-file-icon , .repo-directory-icon {
+  background-size: contain;
+  height: 20px;
+  margin-right: 8px;
+  width: 20px;
+}
+
+.repo-file-icon {
+  background-image: url('../../assets/file.png');
+}
+
+.repo-directory-icon {
+  background-image: url('../../assets/directory.png');
+}
+
+.repo-filetype {
+  font-size: 14px;
+  margin-right: 8px;
+  opacity: 0.8;
+  text-align: left;
+  width: 142px;
+}
+
+

@@ -10,6 +10,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   height: 32px;
+  white-space: nowrap;
   width: 100%;
 }
 

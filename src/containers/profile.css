@@ -47,10 +47,14 @@
 }
 
 .details {
-  display: flex;
   height: 400px;
   margin: 20px;
-  overflow-x: auto;
+  overflow-x: scroll;
+  width: calc(100% - 480px);
+}
+
+.nav-buttons-holder {
+  display: flex;
   width: 100%;
 }
 
@@ -89,9 +93,14 @@
   background-color: orange;
 }
 
-@media only screen and (max-width: 600px) {
+.nav-buttons-separator {
+  margin: 0;
+}
+
+@media only screen and (max-width: 800px) {
   .container {
     display: block;
+    overflow-x: hidden;
   }
 
   .info {
@@ -99,6 +108,7 @@
   }
 
   .details {
-    margin: auto;
+    margin: 0 24px;
+    width: 100%;
   }
 }

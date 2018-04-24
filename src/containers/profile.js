@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { shape, string } from 'prop-types'
 import { connect } from 'react-redux';
 import classnames from 'classnames/bind';
+import Overview from '../components/overview'
+import Repository from '../components/repository'
 import Dialog from '../components/dialog';
 import Button from '../components/button';
 import { getUserDetails } from '../actions';
-import { getJoiningAt } from '../helper';
+import { getDisplayDateTime } from '../helper';
+import { NAV_BUTTON_NAMES } from '../constants/profile';
 import Styles from './profile.css';
 
 const cx = classnames.bind(Styles);
@@ -54,7 +56,46 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(getUserDetails(this.props.match.params.username));
+    getUserDetails(this.props.match.params.username)(this.props.dispatch);
+  }
+
+  getDetailItemComponent = detailItem => {
+    switch(detailItem) {
+      case 'Repositories': {
+        return <Repository />;
+      } case 'Stars': {
+        return <div />
+      } case 'Followers': {
+        return <div />
+      } case 'Following': {
+        return <div />
+      } default: {
+        return <Overview />;
+      }
+    }
+  }
+
+  getNavButtonText = navItem => {
+    switch(navItem) {
+      case 'Stars': {
+        const stars = this.props.stars;
+        return (!stars || !Object.keys(stars).length) ? `${navItem} (0)` : `${navItem} (${Object.keys(stars).reduce((total, repoName) => {
+          total += stars[repoName] * 1;
+          return total;
+        }, 0)})`;
+      } case 'Followers': {
+        const followers = this.props.followers;
+        return (followers && followers.length) ? `${navItem} (${followers.length})` : `${navItem} (0)`;
+      } case 'Following': {
+        const following = this.props.following;
+        return (following && following.length) ? `${navItem} (${this.props.following.length})` : `${navItem} (0)`;
+      } case 'Repositories': {
+        const repositories = this.props.repositories;
+        return (repositories && repositories.length) ? `${navItem} (${repositories.length})` : `${navItem} (0)`;
+      } default: {
+        return navItem;
+      }
+    }
   }
 
   renderInfo() {
@@ -71,7 +112,11 @@ class Profile extends Component {
           onClick={this.openModal}
         />
         <div className={cx('separator')} />
-        <div className={cx('joined-at')}>{getJoiningAt(this.props.joinedAt * 1)}</div>
+        <div className={cx('joined-at')}>{getDisplayDateTime({
+          timestamp:this.props.joinedAt * 1,
+          prefix: 'Joined ',
+          suffix: ' ago'
+        })}</div>
       </div>
     );
   }
@@ -79,11 +124,11 @@ class Profile extends Component {
   renderDetailNavs() {
     const basePath = `/${this.props.match.params.username}`;
     const { detailItem } = this.props.match.params;
-    return ['Overview', 'Repository', 'Stars', 'Followers', 'Following'].map((navItem, key) => (
-      <div className={cx('nav-button-holder')}>
+    const navButtons = NAV_BUTTON_NAMES.map((navItem, key) => (
+      <div key={key} className={cx('nav-button-holder')}>
         <Button
           key={key}
-          text={navItem}
+          text={this.getNavButtonText(navItem)}
           buttonClassName={cx('nav-button', navItem)}
           classNames={cx('nav-button-container', navItem)}
           onClick={() => {
@@ -105,23 +150,21 @@ class Profile extends Component {
         />
       </div>
     ));
+
+    return (
+      <div className={cx('nav-buttons-holder')}>
+        {navButtons}
+      </div>
+    );
   }
 
   renderDetails() {
-    const basePath = `/${this.props.match.params.username}`;
+    const { detailItem } = this.props.match.params;
     return (
       <div className={cx('details')}>
         {this.renderDetailNavs()}
-        <Router>
-          <Switch>
-            <Route path="/:username/Overview" />
-            <Route path="/:username/Repository" />
-            <Route path="/:username/Stars" />
-            <Route path="/:username/Followers" />
-            <Route path="/:username/Following"/>
-            <Redirect to={`${basePath}/Overview`} />
-          </Switch>
-        </Router>
+        <div className={cx('separator', 'nav-buttons-separator')} />
+        {React.cloneElement(this.getDetailItemComponent(detailItem), {...this.props})}
       </div>
     );
   }

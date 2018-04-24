@@ -76,3 +76,10 @@
   height: 32px;
   width: 24px;
 }
+
+@media only screen and (max-width: 800px) {
+  .navbar-container {
+    display: none;
+    overflow-x: hidden;
+  }
+}
