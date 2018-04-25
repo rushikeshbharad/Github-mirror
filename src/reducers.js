@@ -6,7 +6,7 @@ const reducer = (state = {}, action) => {
       ...state,
       ...action['payload']
     };
-  } else if (action['api'] === 'repoinfo' && action['type'] === 'success') {
+  } else if (action['type'] === 'getRepoDetailsSuccess') {
     return {
       ...state,
       ...{ currentRepo: action['payload'] }

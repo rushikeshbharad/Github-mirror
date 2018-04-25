@@ -95,7 +95,9 @@ var db = {
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
   type Query {
-    getUserDetails(username: String): String
+    getUserDetails(username: String): String,
+    getRepoDetails(username: String, reponame: String): String,
+    updateRepoInfo(username: String, reponame: String, description: String, website: String): String
   }
 `);
 
@@ -104,6 +106,20 @@ var root = {
   getUserDetails: function({ username }) {
     return JSON.stringify(db[username]);
   },
+  getRepoDetails: function({ username, reponame }) {
+    return JSON.stringify(db[username]['repositories'].find(repo => repo.name === reponame));
+  },
+  updateRepoInfo: function({ username, reponame, description, website }) {
+    var repoIndex;
+    db[username]['repositories'].forEach((repo, index) => {
+      if (repo.name === reponame) {
+        repoIndex = index;
+      }
+    })
+    db[username]['repositories'][repoIndex]['description'] = description;
+    db[username]['repositories'][repoIndex]['website'] = website;
+    return JSON.stringify(db[username]['repositories'][repoIndex]);
+  }
 };
 
 var app = express();

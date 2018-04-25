@@ -4,7 +4,7 @@ import classnames from 'classnames/bind';
 import Dialog from '../components/dialog';
 import Button from '../components/button';
 import RepoGrid from '../components/repo-grid';
-import { getRepoDetails } from '../actions';
+import { getRepoDetails, updateRepoInfo } from '../actions';
 import RedirectLink from '../components/redirect-link';
 import Styles from './repos.css';
 
@@ -19,7 +19,8 @@ class Repos extends Component {
     this.state = {
       shouldDisplayModal: false,
       hasDescription: !!(description || website),
-      isEditingDescription: false
+      isEditingDescription: false,
+      description: ''
     }
   }
 
@@ -35,19 +36,33 @@ class Repos extends Component {
     })
   }
 
+  onDescriptionChange = e => {
+    this.setState({
+      description: e.target.value
+    });
+  }
+
+  onWebsiteChange = e => {
+    this.setState({
+      website: e.target.value
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     const { currentRepo = {} } = nextProps;
-    const { description, website } = currentRepo;
+    const { description = '', website = '' } = currentRepo;
     this.setState({
-      hasDescription: !!(description || website)
+      hasDescription: !!(description || website),
+      description,
+      website
     })
   }
 
   componentDidMount() {
-    this.props.dispatch(getRepoDetails(
+    getRepoDetails(
       this.props.match.params.username,
-      this.props.match.params.reponame)
-    );
+      this.props.match.params.reponame
+    )(this.props.dispatch);
   }
 
   renderHeader() {
@@ -80,11 +95,23 @@ class Repos extends Component {
           <div className={cx('repo-description-container')}>
             <div className={cx('repo-edit-description')}>
               <div className={cx('repo-description-label')}>{'Description'}</div>
-              <input className={cx('repo-info-input-description')} type="text" placeholder="Description" />
+              <input
+                className={cx('repo-info-input-description')}
+                type="text"
+                onChange={this.onDescriptionChange}
+                placeholder="Description"
+                value={this.state.description}
+              />
             </div>
             <div className={cx('repo-edit-website')}>
               <div className={cx('repo-website-label')}>{'Website'}</div>
-              <input className={cx('repo-info-input-website')} type="text" placeholder="Url" />
+              <input
+                className={cx('repo-info-input-website')}
+                type="text"
+                placeholder="Url"
+                onChange={this.onWebsiteChange}
+                value={this.state.website}
+              />
             </div>
           </div>
           <div className={cx('repo-edit-button-container')}>
@@ -92,7 +119,12 @@ class Repos extends Component {
               text="Save"
               onClick={() => {
                 this.setState({ isEditingDescription: false });
-                // Call API to save description
+                updateRepoInfo(
+                  this.props.match.params.username,
+                  this.props.match.params.reponame,
+                  this.state.description,
+                  this.state.website
+                )(this.props.dispatch);
               }}
               classNames={cx('')}
               buttonClassName={cx('repo-description-button')}
@@ -116,12 +148,13 @@ class Repos extends Component {
     }
 
     const { currentRepo = {} } = this.props;
-    const { description, website } = currentRepo;
+    const { description = '', website = '' } = currentRepo;
+    const absoluteWebistePath = website.includes('https://') ? website : `https://${website}`;
     const Info = (description || website)
       ? (
         <Fragment>
           <div className={cx('repo-description')}>{description}</div>
-          {website ? <a className={cx('repo-website')} href={website} target="_blank">{website}</a> : ''}
+          {website ? <a className={cx('repo-website')} href={absoluteWebistePath} target="_blank">{website}</a> : ''}
         </Fragment>
       )
       : (
