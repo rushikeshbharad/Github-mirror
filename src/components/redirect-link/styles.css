@@ -1,0 +1,13 @@
+.redirect-link {
+  color: #1c6ced;
+  cursor: pointer;
+}
+
+.redirect-link:hover {
+  color: #3b80ef;
+  text-decoration: underline;
+}
+
+.redirect-link:active {
+  color: #0845a8;
+}

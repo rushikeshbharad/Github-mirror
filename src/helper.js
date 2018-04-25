@@ -13,11 +13,9 @@ const MILLISECONDS_IN_DAY = HOURS_IN_DAY * MILLISECONDS_IN_HOUR;
 const MAX_MILLISECONDS_IN_MONTH = MAX_DAYS_IN_MONTH * MILLISECONDS_IN_DAY;
 const MAX_MILLISECONDS_IN_YEAR = MAX_DAYS_YEAR * MAX_MILLISECONDS_IN_MONTH;
 
-export const getJoiningAt = timestamp => {
+export const getDisplayDateTime = ({ timestamp, prefix, suffix }) => {
   const currentTimeStamp = moment().unix() * 1000;
   const timestampDiff = currentTimeStamp - timestamp;
-  const prefix = 'Joined ';
-  const suffix = ' ago';
 
   if (timestampDiff < MILLISECONDS_IN_HOUR) {
     return `${prefix}few moments${suffix}`;
@@ -39,5 +37,5 @@ export const getJoiningAt = timestamp => {
   }
   const years = Math.round(timestampDiff / MAX_MILLISECONDS_IN_YEAR);
   const yearsSuffix = years > 1 ? 's' : '';
-  return `${prefix}${years} year{yearsSuffix}${suffix}`;
+  return `${prefix}${years} year${yearsSuffix}${suffix}`;
 }

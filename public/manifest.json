@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Github mirror",
+  "name": "Create Github mirror Sample",
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,0 +1,31 @@
+.overview-header {
+  display: flex;
+  height: 32px;
+  justify-content: space-between;
+  line-height: 32px;
+  margin-top: 32px;
+}
+
+.overview-value {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.overview-repo-holder {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  height: 80px;
+  margin: 24px;
+  text-align: left;
+  width: 320px;
+}
+
+.overview-repo-name {
+  margin: 16px;
+}
+
+.overview-repo-tech {
+  font-size: 14px;
+  opacity: 0.8;
+  margin: 16px;
+}
