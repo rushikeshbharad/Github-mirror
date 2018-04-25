@@ -4,7 +4,7 @@ import classnames from 'classnames/bind';
 import Dialog from '../components/dialog';
 import Button from '../components/button';
 import RepoGrid from '../components/repo-grid';
-import { getRepoDetails, updateRepoInfo } from '../actions';
+import { getRepoDetails, updateRepoInfo, starRepo, watchRepo } from '../actions';
 import RedirectLink from '../components/redirect-link';
 import Styles from './repos.css';
 
@@ -66,24 +66,53 @@ class Repos extends Component {
   }
 
   renderHeader() {
-    const { history: { push }, match: { params: { username, reponame } } } = this.props;
+    const { history: { push }, match: { params: { username, reponame } }, currentRepo = {} } = this.props;
+    const { starredBy, watchedBy } = currentRepo;
+    const starCount = starredBy && starredBy.length || 0;
+    const watchCount = watchedBy && watchedBy.length || 0;
+    const starButtonText = starredBy && starredBy.includes(username) ? `Unstar (${starCount})` : `Star (${starCount})`;
+    const watchButtonText = watchedBy && watchedBy.includes(username) ? `Unwatch (${watchCount})` : `Watch (${watchCount})`;
     return (
       <div className={cx('repo-header')}>
-        <div className={cx('repo-icon')} />
-        <div className={cx('repo-username')}>
-          <RedirectLink
-            text={username}
-            path={`/${username}`}
-            redirectTo={push}
-          />
+        <div className={cx('repo-name-holder')}>
+          <div className={cx('repo-icon')} />
+          <div className={cx('repo-username')}>
+            <RedirectLink
+              text={username}
+              path={`/${username}`}
+              redirectTo={push}
+            />
+          </div>
+          <div className={cx('divider')}>{' / '}</div>
+          <div className={cx('repo-name')}>
+            <RedirectLink
+              text={reponame}
+              path={`/${username}/Repositories/${reponame}`}
+              redirectTo={push}
+            />
+          </div>
         </div>
-        <div className={cx('divider')}>{' / '}</div>
-        <div className={cx('repo-name')}>
-          <RedirectLink
-            text={reponame}
-            path={`/${username}/Repositories/${reponame}`}
-            redirectTo={push}
-          />
+        <div className={cx('repo-action-container')}>
+        <div className={cx('repo-watch')}>
+            <Button
+              text={watchButtonText}
+              onClick={() => {
+                watchRepo(this.props.match.params.username, this.props.match.params.reponame)(this.props.dispatch);
+              }}
+              classNames={cx('repo-action-button')}
+              buttonClassName={cx('repo-watch-icon')}
+            />
+          </div>
+          <div className={cx('repo-star')}>
+            <Button
+              text={starButtonText}
+              onClick={() => {
+                starRepo(this.props.match.params.username, this.props.match.params.reponame)(this.props.dispatch);
+              }}
+              classNames={cx('repo-action-button')}
+              buttonClassName={cx('repo-star-icon')}
+            />
+          </div>
         </div>
       </div>
     );

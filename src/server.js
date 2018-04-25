@@ -2,102 +2,18 @@ var express = require('express');
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
 var cors = require('cors')
+var fs = require("fs");
 
-var db = {
-  rushikeshbharad: {
-    profileImage: "",
-    joinedAt: 1524251493000,
-    stars: {
-      "ToDo1": 3,
-      "My project": 2
-    },
-    followers: [
-      "Bill",
-      "Jim"
-    ],
-    following: [
-      "Charlotte"
-    ],
-    repositories: [
-      {
-        name: "ToDo1",
-        description: "This is my ToDo app",
-        website: "https://google.co.in",
-        createdAt: 1524251493000,
-        updatedAt: 1524251493000,
-        technology: "Javascript",
-        watchedBy: [
-          "Jim",
-          "Rushikesh",
-          "Bill"
-        ],
-        directoryStructure: {
-          ".git": {
-            "hook": {},
-            "info": {},
-            "logs": {}
-          },
-          "node_modules": {
-          ".bin": {},
-          ".cache": {}
-          },
-          "public": {
-          "images": {},
-          "i18n": {}
-          },
-          "src": {
-            "containers": {},
-            "components": {}
-            },
-          ".gitingnore": "Text Document",
-          "package.json": "JSON",
-          "package-lock.json": "JSON",
-          "README.md": "MD"
-        }
-      },
-      {
-        name: "My project",
-        createdAt: 1524251493000,
-        updatedAt: 1524251493000,
-        technology: "Javascript",
-        watchedBy: [
-          "Rushikesh",
-          "Charlotte"
-        ],
-        directoryStructure: {
-          ".git": {
-            "hook": {},
-            "info": {},
-            "logs": {}
-          },
-          "node_modules": {
-            ".bin": {},
-            ".cache": {}
-          },
-          "public": {
-          "images": {},
-          "i18n": {}
-          },
-          "src": {
-          "containers": {},
-          "components": {}
-          },
-          ".gitingnore": "Text Document",
-          "package.json": "JSON",
-          "package-lock.json": "JSON",
-          "README.md": "MD"
-        }
-      }
-    ]
-  }
-};
-
+var rawdata = fs.readFileSync('src/db.json');
+var db = JSON.parse(rawdata);
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
   type Query {
     getUserDetails(username: String): String,
     getRepoDetails(username: String, reponame: String): String,
-    updateRepoInfo(username: String, reponame: String, description: String, website: String): String
+    updateRepoInfo(username: String, reponame: String, description: String, website: String): String,
+    starRepo(username: String, reponame: String): String,
+    watchRepo(username: String, reponame: String): String
   }
 `);
 
@@ -118,6 +34,49 @@ var root = {
     })
     db[username]['repositories'][repoIndex]['description'] = description;
     db[username]['repositories'][repoIndex]['website'] = website;
+    fs.writeFileSync('src/db.json', JSON.stringify(db));
+    return JSON.stringify(db[username]['repositories'][repoIndex]);
+  },
+  starRepo: function({ username, reponame }) {
+    var repoIndex, starIndex;
+    db[username]['repositories'].forEach((repo, index) => {
+      if (repo.name === reponame) {
+        repoIndex = index;
+      }
+    });
+    db[username]['repositories'][repoIndex]['starredBy'].forEach((name, index) => {
+      if (name === username) {
+        starIndex = index;
+      }
+    });
+    if (starIndex !== undefined) {
+      db[username]['repositories'][repoIndex]['starredBy'].splice(starIndex, 1);
+      db[username]['stars'][reponame] -= 1;
+    } else {
+      db[username]['repositories'][repoIndex]['starredBy'].push(username);
+      db[username]['stars'][reponame] += 1;
+    }
+    fs.writeFileSync('src/db.json', JSON.stringify(db));
+    return JSON.stringify(db[username]['repositories'][repoIndex]);
+  },
+  watchRepo: function({ username, reponame }) {
+    var repoIndex, watchIndex;
+    db[username]['repositories'].forEach((repo, index) => {
+      if (repo.name === reponame) {
+        repoIndex = index;
+      }
+    });
+    db[username]['repositories'][repoIndex]['watchedBy'].forEach((name, index) => {
+      if (name === username) {
+        watchIndex = index;
+      }
+    });
+    if (watchIndex !== undefined) {
+      db[username]['repositories'][repoIndex]['watchedBy'].splice(watchIndex, 1);
+    } else {
+      db[username]['repositories'][repoIndex]['watchedBy'].push(username);
+    }
+    fs.writeFileSync('src/db.json', JSON.stringify(db));
     return JSON.stringify(db[username]['repositories'][repoIndex]);
   }
 };
