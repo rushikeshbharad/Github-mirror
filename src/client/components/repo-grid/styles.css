@@ -22,11 +22,11 @@
 }
 
 .repo-file-icon {
-  background-image: url('../../assets/file.png');
+  background-image: url('../../../assets/file.png');
 }
 
 .repo-directory-icon {
-  background-image: url('../../assets/directory.png');
+  background-image: url('../../../assets/directory.png');
 }
 
 .repo-filetype {

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { shape, string } from 'prop-types'
 import classnames from 'classnames/bind';
 import Styles from './styles.css';

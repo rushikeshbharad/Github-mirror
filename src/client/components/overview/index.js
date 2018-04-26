@@ -11,8 +11,8 @@ const Repositories = ({ basePath, repositories: repos, history: { push } }) => {
     return null;
   }
 
-  return repos.map(({ name, technology }) => (
-    <div className={cx('overview-repo-holder')}>
+  return repos.map(({ name, technology }, key) => (
+    <div key={key} className={cx('overview-repo-holder')}>
       <div className={cx('overview-repo-name')}>
         <RedirectLink
           text={name}

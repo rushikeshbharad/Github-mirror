@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { shape, string } from 'prop-types'
 import { connect } from 'react-redux';
 import classnames from 'classnames/bind';
@@ -48,11 +48,6 @@ class Profile extends Component {
     this.setState({
       shouldDisplayModal: false
     });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { detailItem } = this.props.match.params;
-    this.setState({currentHover: detailItem})
   }
 
   componentDidMount() {
@@ -145,7 +140,7 @@ class Profile extends Component {
           className={cx(
             'nav-button-underline',
             this.state.currentHover === navItem ? 'hover' : '',
-            detailItem === navItem ? 'active' : ''
+            (detailItem === navItem || (detailItem === undefined && navItem === 'Overview')) ? 'active' : ''
           )}
         />
       </div>

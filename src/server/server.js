@@ -4,7 +4,7 @@ var { buildSchema } = require('graphql');
 var cors = require('cors')
 var fs = require("fs");
 
-var rawdata = fs.readFileSync('src/db.json');
+var rawdata = fs.readFileSync('src/server/db.json');
 var db = JSON.parse(rawdata);
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
@@ -34,7 +34,7 @@ var root = {
     })
     db[username]['repositories'][repoIndex]['description'] = description;
     db[username]['repositories'][repoIndex]['website'] = website;
-    fs.writeFileSync('src/db.json', JSON.stringify(db));
+    fs.writeFileSync('src/server/db.json', JSON.stringify(db));
     return JSON.stringify(db[username]['repositories'][repoIndex]);
   },
   starRepo: function({ username, reponame }) {
@@ -56,7 +56,7 @@ var root = {
       db[username]['repositories'][repoIndex]['starredBy'].push(username);
       db[username]['stars'][reponame] += 1;
     }
-    fs.writeFileSync('src/db.json', JSON.stringify(db));
+    fs.writeFileSync('src/server/db.json', JSON.stringify(db));
     return JSON.stringify(db[username]['repositories'][repoIndex]);
   },
   watchRepo: function({ username, reponame }) {
@@ -76,7 +76,7 @@ var root = {
     } else {
       db[username]['repositories'][repoIndex]['watchedBy'].push(username);
     }
-    fs.writeFileSync('src/db.json', JSON.stringify(db));
+    fs.writeFileSync('src/server/db.json', JSON.stringify(db));
     return JSON.stringify(db[username]['repositories'][repoIndex]);
   }
 };

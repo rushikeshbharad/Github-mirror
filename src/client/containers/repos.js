@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames/bind';
-import Dialog from '../components/dialog';
 import Button from '../components/button';
 import RepoGrid from '../components/repo-grid';
 import { getRepoDetails, updateRepoInfo, starRepo, watchRepo } from '../actions';
@@ -68,8 +67,8 @@ class Repos extends Component {
   renderHeader() {
     const { history: { push }, match: { params: { username, reponame } }, currentRepo = {} } = this.props;
     const { starredBy, watchedBy } = currentRepo;
-    const starCount = starredBy && starredBy.length || 0;
-    const watchCount = watchedBy && watchedBy.length || 0;
+    const starCount = (starredBy && starredBy.length) || 0;
+    const watchCount = (watchedBy && watchedBy.length) || 0;
     const starButtonText = starredBy && starredBy.includes(username) ? `Unstar (${starCount})` : `Star (${starCount})`;
     const watchButtonText = watchedBy && watchedBy.includes(username) ? `Unwatch (${watchCount})` : `Watch (${watchCount})`;
     return (
@@ -128,6 +127,7 @@ class Repos extends Component {
                 className={cx('repo-info-input-description')}
                 type="text"
                 onChange={this.onDescriptionChange}
+                maxLength={50}
                 placeholder="Description"
                 value={this.state.description}
               />
@@ -139,6 +139,7 @@ class Repos extends Component {
                 type="text"
                 placeholder="Url"
                 onChange={this.onWebsiteChange}
+                maxLength={25}
                 value={this.state.website}
               />
             </div>
