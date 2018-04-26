@@ -11,7 +11,7 @@ This is a prototype of Github profile and repository screens which contains foll
 - Displays sub-navigation as: Overview, Repositories, Stars, Followers, Following
   - Overview: Holds repositories in banner
   - Repositories: Holds repository name, description, last update info and technology for each of the repository user has
-  - Stars, Followers, Followings: These tabs currently hold only the number of stars, followers and followings user has. The content is currently under development
+  - Stars, Followers, Followings: These tabs currently hold only the number of Stars and Followers the user has and the number of people the user follows (Following). The content is currently under development
 - Clicking on repository either from Overview or Repositories navigates user to Repository detail screen
 - Repository detail screen has following features:
   - Displays username and repository name - clicking username will navigate user to profile screen
@@ -26,9 +26,9 @@ Please follow below steps to run this project on your machine
 5. Open two different terminals: a. For hosting the local server b. For hosting the website
    - Run `node src/server/server.js` on one terminal
    - Run `npm start` on another terminal
-6. Open borwser and paste `localhost:3000`
+6. Open browser and paste `localhost:3000`
 
-Stack involved (dependencies) in this project:
+Stacks involved in this project (dependencies):
 - Primary:
   - React: for creating components
   - Redux: for maitaining the local data fetched from services
@@ -36,10 +36,10 @@ Stack involved (dependencies) in this project:
 - Supplementary:
   - React-router: for navigating user form one screen to another
   - React-modal2: for displaying dialogs
-  - Classnames: for binding css (makes easier to send classnames to react child components)
+  - Classnames: for binding css (makes easier to send styles to react child components)
   - momentjs: for working on timestamps and formatting the times before being displayed
   - react-redux: for connecting redux state to react components
 
 Primary TODOs for existing implementation:
 - Mobile specific css
-- Move all hardcoded string to i18n string.json
+- Move all hardcoded strings to i18n string.json
