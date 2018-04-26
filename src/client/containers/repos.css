@@ -36,15 +36,15 @@
 }
 
 .repo-watch-icon {
-  background-image: url('../assets/watch.png');
+  background-image: url('../../assets/watch.png');
 }
 
 .repo-star-icon {
-  background-image: url('../assets/star.png');
+  background-image: url('../../assets/star.png');
 }
 
 .repo-icon {
-  background-image: url('../assets/repository.png');
+  background-image: url('../../assets/repository.png');
   background-repeat: no-repeat;
   background-size: contain;
   height: 32px;
@@ -89,7 +89,7 @@
 .repo-edit-button-container {
   display: flex;
   justify-content: space-between;
-  width: 200px;
+  width: 172px;
 }
 
 .repo-edit-website {
