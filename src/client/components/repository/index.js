@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { arrayOf, func, shape, string } from 'prop-types'
 import classnames from 'classnames/bind';
 import { getDisplayDateTime } from '../../helper';
@@ -12,8 +12,8 @@ const Repositories = ({ basePath, repositories: repos, history: { push } }) => {
     return null;
   }
 
-  return repos.map(({ name, description, technology, updatedAt }) => (
-    <div className={cx('repository-repo-holder')}>
+  return repos.map(({ name, description, technology, updatedAt }, key) => (
+    <div key={key} className={cx('repository-repo-holder')}>
       <div className={cx('repository-repo-name')}>
         <RedirectLink
           text={name}

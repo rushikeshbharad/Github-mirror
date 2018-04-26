@@ -33,7 +33,7 @@ export const getDisplayDateTime = ({ timestamp, prefix, suffix }) => {
   if (timestampDiff < MAX_MILLISECONDS_IN_YEAR) {
     const months = Math.round(timestampDiff / MAX_MILLISECONDS_IN_MONTH);
     const monthsSuffix = months > 1 ? 's' : '';
-    return `${prefix}${months} month{monthsSuffix}${suffix}`;
+    return `${prefix}${months} month${monthsSuffix}${suffix}`;
   }
   const years = Math.round(timestampDiff / MAX_MILLISECONDS_IN_YEAR);
   const yearsSuffix = years > 1 ? 's' : '';
