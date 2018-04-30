@@ -18,6 +18,8 @@ This is a prototype of Github profile and repository screens which contains foll
   - User can watch/unwatch, star/unstar the repository
   - User can add/edit the description and website
 
+<img src="https://media.giphy.com/media/9Y3KnYujYskaGM4TC0/giphy.gif"></img>
+
 Please follow below steps to run this project on your machine
 1. Clone this project using https://github.com/rushikeshbharad/Github-mirror.git
 2. Make sure you have npm setup on your machine
